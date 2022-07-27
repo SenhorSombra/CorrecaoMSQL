@@ -45,6 +45,10 @@ select * from tb_categorias where preco > 50;
 select tb_categorias.preco, tb_categorias.nome, tb_produtos.id  from tb_categorias inner join
 tb_produtos on tb_produtos.id = tb_produtos.tb_categorias where tb_categorias.preco between '5.00' and '60.00';
 SELECT * FROM tb_produtos WHERE nome LIKE 'C%';
+select * from tb_produtos inner join tb_categorias on tb_categorias.id = tb_produtos.tb_categorias;
+
+select tb_produto.nome from tb_produto  inner join 
+tb_categoria on tb_categoria.id = tb_produto.tb_categorias where tb_categorias.nome = 'dor de estomago';
 
 
 

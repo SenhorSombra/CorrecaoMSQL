@@ -19,15 +19,12 @@ public class Postagem {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id; //long é o Bigint
-		
 		@NotBlank
 		@Size(min = 3 ,max = 255)
 		private String titulo;
-		
 		@NotBlank
 		@Size(min = 5 ,max = 1000)
 		private String texto;
-		
 		@UpdateTimestamp
 		private LocalDateTime data;
 		

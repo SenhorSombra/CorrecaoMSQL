@@ -44,7 +44,7 @@ public class ProdutosController {
 		//Metodo procure na lista de Postagem, e busque por Id, mapeie se existe o Id, se não responda Não encontrado
 	}	
 	@GetMapping("/produto/{nome}")
-	public ResponseEntity<List<Produtos>> getByNome(@PathVariable String Nome) {
+	public ResponseEntity<List<Produtos>> getByNome(@PathVariable String nome) {
 		
 		return ResponseEntity.ok(produtosRepository.findAllByNomeContainingIgnoreCase(nome));
 	}
@@ -65,9 +65,9 @@ public class ProdutosController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		
-		Optional<Produtos>postagem = produtosRepository.findById(id);
+		Optional<Produtos>produtos = produtosRepository.findById(id);
 		
-		if(postagem.isEmpty()) {
+		if(produtos.isEmpty()) {
 			
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			

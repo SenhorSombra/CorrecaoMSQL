@@ -22,8 +22,15 @@ public class Produtos {
 	private Integer preco;
 	@NotBlank
 	@Size(min=5, max= 100)
-	
 	private String Tarja;
+	@NotBlank
+	@Size(min=5, max= 100)
+	private String prescricaoMedica;
+	@NotBlank
+	@Size(min=5, max= 100)
+	private String formaDeAdmistracao;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -60,12 +67,8 @@ public class Produtos {
 	public void setFormaDeAdmistracao(String formaDeAdmistracao) {
 		this.formaDeAdmistracao = formaDeAdmistracao;
 	}
-	@NotBlank
-	@Size(min=5, max= 100)
-	private String prescricaoMedica;
-	@NotBlank
-	@Size(min=5, max= 100)
-	private String formaDeAdmistracao;
+	
+	
 	
 	
 	

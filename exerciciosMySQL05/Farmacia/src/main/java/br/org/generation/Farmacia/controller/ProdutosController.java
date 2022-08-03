@@ -43,7 +43,7 @@ public class ProdutosController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 		//Metodo procure na lista de Postagem, e busque por Id, mapeie se existe o Id, se não responda Não encontrado
 	}	
-	@GetMapping("/produto/{nome}")
+	@GetMapping("/produtos/{nome}")
 	public ResponseEntity<List<Produtos>> getByNome(@PathVariable String nome) {
 		
 		return ResponseEntity.ok(produtosRepository.findAllByNomeContainingIgnoreCase(nome));

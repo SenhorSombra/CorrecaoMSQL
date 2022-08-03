@@ -1,12 +1,18 @@
 package br.org.generation.Farmacia.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -14,12 +20,17 @@ import javax.validation.constraints.Size;
 @Table(name="tb_categorias")
 public class Categorias {
 	
+	
+	@OneToMany(mappedBy= "categorias", cascade=CascadeType.ALL)
+	@JsonIgnoreProperties("categorias")
+	private List<Produtos> produtos;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
 	@Size(min=5, max= 500)
-	private Long descricao;
+	private String descricao;
 	@NotBlank
 	@Size(min=5, max= 500)
 	private String medicamentos;
@@ -36,16 +47,25 @@ public class Categorias {
 	@Size(min=5, max= 500)
 	private String Beleza;
 	
+	
+	
+	
+	public List<Produtos> getProdutos() {
+		return produtos;
+	}	
+	public void setProdutos(List<Produtos> produtos) {
+		this.produtos = produtos;
+	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getDescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
-	public void setDescricao(Long descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 	public String getMedicamentos() {
@@ -79,6 +99,8 @@ public class Categorias {
 		Beleza = beleza;
 	}
 	
+	
+
 	
 	
 	

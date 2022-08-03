@@ -26,7 +26,7 @@ import br.org.generation.Farmacia.repository.CategoriasRepository;
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin(origins = "", allowedHeaders ="")
-public class CategoriaController {
+public class CategoriasController {
 	
 	@Autowired
 	private CategoriasRepository categoriasRepository;

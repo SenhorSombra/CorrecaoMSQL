@@ -6,11 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity //Entidade
 @Table(name="tb_postagens") //transformar em tabela
@@ -19,19 +22,22 @@ public class Postagem {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id; //long é o Bigint
-		@NotBlank
-		@Size(min = 3 ,max = 255)
+		@NotBlank(message = "O Atributo titulo é obrigatorio!")
+		@Size(min = 3 ,max = 255, message = "O atributo deve conter no minimo 05 caracteres e no maximo 255.")
 		private String titulo;
-		@NotBlank
-		@Size(min = 5 ,max = 1000)
+		@NotBlank (message = "O Atributo texto é obrigatorio!")
+		@Size(min = 5 ,max = 1000, message = "O atributo deve conter no minimo 05 caracteres e no maximo 1000.")
 		private String texto;
 		@UpdateTimestamp
 		private LocalDateTime data;
+		@ManyToOne
+		@JsonIgnoreProperties("postagem")
+		private Tema tema;
 		
 		
 		public Long getId() {
 			return id;
-		}	
+		}
 		public void setId(Long id) {
 			this.id = id;
 		}
@@ -53,5 +59,13 @@ public class Postagem {
 		public void setData(LocalDateTime data) {
 			this.data = data;
 		}
+		public Tema getTema() {
+			return tema;
+		}
+		public void setTema(Tema tema) {
+			this.tema = tema;
+		}
+		
+		
 
 }

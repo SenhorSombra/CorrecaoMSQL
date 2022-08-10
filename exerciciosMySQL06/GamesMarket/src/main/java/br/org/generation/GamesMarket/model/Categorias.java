@@ -18,9 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="tb_categorias")
 public class Categorias {
 	
-	@OneToMany(mappedBy= "categorias", cascade=CascadeType.ALL)
-	@JsonIgnoreProperties("categorias")
-	private List<Games> games;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -35,6 +33,9 @@ public class Categorias {
 	@NotBlank(message = "Faixa Etaria Obrigatorio")
 	@Size(min = 3 , max = 50)
 	private String faixaIdade;
+	@OneToMany(mappedBy= "categorias", cascade=CascadeType.ALL)
+	@JsonIgnoreProperties("categorias")
+	private List<Games> games;
 	
 	
 	public Long getId() {
@@ -67,6 +68,14 @@ public class Categorias {
 	public void setFaixaIdade(String faixaIdade) {
 		this.faixaIdade = faixaIdade;
 	}
+	public List<Games> getGames() {
+		return games;
+	}
+	public void setGames(List<Games> games) {
+		this.games = games;
+	}
+
+	
 
 	
 	

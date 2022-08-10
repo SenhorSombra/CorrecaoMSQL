@@ -40,7 +40,8 @@ public class CategoriasController {
 		@GetMapping("/{id}")
 		public ResponseEntity<Categorias> GetById(@PathVariable Long id) {
 		// Resposta chamando o Tabela	
-			return categoriasRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
+			return categoriasRepository.findById(id)
+					.map(resposta -> ResponseEntity.ok(resposta))
 					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 			//Metodo procure na lista de Postagem, e busque por Id, mapeie se existe o Id, se não responda Não encontrado
 		}	
@@ -50,16 +51,19 @@ public class CategoriasController {
 			return ResponseEntity.ok(categoriasRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 		}
 		@PostMapping
-		public ResponseEntity<Categorias> post(@Valid @RequestBody Categorias descricao) {
+		public ResponseEntity<Categorias> post(@Valid @RequestBody Categorias categorias) {
 			
-			return ResponseEntity.status(HttpStatus.CREATED).body(categoriasRepository.save(descricao));
+			return ResponseEntity.status(HttpStatus.CREATED)
+					.body(categoriasRepository.save(categorias));
 			
 		}
 		@PutMapping
-		public ResponseEntity<Categorias> put(@Valid @RequestBody Categorias descricao){
+		public ResponseEntity<Categorias> put(@Valid @RequestBody Categorias categorias){
 			
-			return categoriasRepository.findById(descricao.getId()).map(resposta -> ResponseEntity.ok(resposta))
-					.orElse(ResponseEntity.status(HttpStatus.OK).body(categoriasRepository.save(descricao))); 
+			return categoriasRepository.findById(categorias.getId())
+					.map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
+					.body(categoriasRepository.save(categorias)))
+					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
 			
 		}
 		@ResponseStatus(HttpStatus.NO_CONTENT)

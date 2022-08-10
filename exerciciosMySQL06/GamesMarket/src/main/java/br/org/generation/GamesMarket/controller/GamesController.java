@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.org.generation.GamesMarket.Repository.CategoriasRepository;
 import br.org.generation.GamesMarket.Repository.GamesRepository;
 import br.org.generation.GamesMarket.model.Games;
 
@@ -31,6 +32,9 @@ public class GamesController {
 	@Autowired
 	private GamesRepository gamesRepository;
 	
+	@Autowired
+	private CategoriasRepository categoriasRepository;
+	
  
 	@GetMapping
 	public ResponseEntity<List <Games>> GetAll(){
@@ -39,7 +43,8 @@ public class GamesController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Games> GetById(@PathVariable Long id) {
 	// Resposta chamando o Tabela	
-		return gamesRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
+		return gamesRepository.findById(id)
+				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 		//Metodo procure na lista de Postagem, e busque por Id, mapeie se existe o Id, se não responda Não encontrado
 	}	
@@ -50,24 +55,29 @@ public class GamesController {
 	}
 	@PostMapping
 	public ResponseEntity<Games> post(@Valid @RequestBody Games  games) {
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(gamesRepository.save(games));
+		if(categoriasRepository.existsById(games.getCategorias().getId()))
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(gamesRepository.save(games));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		
 	}
 	@PutMapping
 	public ResponseEntity<Games> put(@Valid @RequestBody Games games){
-		
-		return gamesRepository.findById(games.getId()).map(resposta -> ResponseEntity.ok(resposta))
-				.orElse(ResponseEntity.status(HttpStatus.OK).body(gamesRepository.save(games))); 
-		
+		if(gamesRepository.existsById(games.getId())) {
+			if(gamesRepository.existsById(games.getCategorias().getId()))
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(gamesRepository.save(games));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		
-		Optional<Games>produtos = gamesRepository.findById(id);
+		Optional<Games>games = gamesRepository.findById(id);
 		
-		if(produtos.isEmpty()) {
+		if(games.isEmpty()) {
 			
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			

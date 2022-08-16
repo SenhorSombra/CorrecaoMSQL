@@ -25,8 +25,9 @@ public class UsuarioService {
 
 		if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " Usuario Já Existe!" , null);
-			//Caso de erro substitua linha 28 return Optional.empty();
+			//throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " Usuario Já Existe!" , null);
+			//Caso de erro substitua linha 28 
+			return Optional.empty();
 
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
 			
@@ -38,12 +39,14 @@ public class UsuarioService {
 		
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 			
-			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+			Optional<Usuario> buscaUsuario = usuarioRepository
+					.findByUsuario(usuario.getUsuario());
 		
 		if (buscaUsuario.isPresent()){
 				
 			if( buscaUsuario.get().getId() != usuario.getId());
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+						"Usuário já existe!", null);
 
 			}
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
@@ -51,7 +54,8 @@ public class UsuarioService {
 			return Optional.of(usuarioRepository.save(usuario));
 			
 		}
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!", null);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"Usuário não encontrado!", null);
 	}	
 
 	

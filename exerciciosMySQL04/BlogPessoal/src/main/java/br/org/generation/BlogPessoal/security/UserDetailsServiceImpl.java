@@ -1,5 +1,6 @@
 package br.org.generation.BlogPessoal.security;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	 */
 	
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userName) throws
+	UsernameNotFoundException {
 		
 		/**
 		 * Para buscar o usuário no Banco de dados, utilizaremos o método findByUsuario,
@@ -40,7 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	/**
 	 * Se o usuário não existir, o método lança uma Exception do tipo UsernameNotFoundException.
 	 */
-	usuario.orElseThrow(() -> new UsernameNotFoundException(userName +" não encontrado."));
+	usuario.orElseThrow(() -> new UsernameNotFoundException
+			(userName +" não encontrado."));
 	
 	/**
 	 * Retorna um objeto do tipo UserDetailsImpl criado com os dados recuperados do

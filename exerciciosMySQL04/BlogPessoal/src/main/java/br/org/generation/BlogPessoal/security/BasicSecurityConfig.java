@@ -12,7 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SuppressWarnings("deprecation") 	 	
+
+@SuppressWarnings("deprecation") 	
 @EnableWebSecurity
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 	
@@ -49,7 +50,8 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 	 *     das classes filhas.
 	 */
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth) 
+			throws Exception {
 		
 	/**
 	 *  O objeto auth registra e cria uma nova instância do objeto userDetailsService

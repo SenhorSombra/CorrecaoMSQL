@@ -1,5 +1,8 @@
 package br.org.generation.BlogPessoal.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +26,7 @@ public class UsuarioRepositoryTest {
 	@BeforeAll
 	void start() {
 
-		usuarioRepository.deleteAll();
+		//usuarioRepository.deleteAll();
 
 		usuarioRepository.save(new Usuario(0L, "João da Silva", "https://br.depositphotos.com/stock-photos/sol.html","joao@email.com.br", "12345678"));
 

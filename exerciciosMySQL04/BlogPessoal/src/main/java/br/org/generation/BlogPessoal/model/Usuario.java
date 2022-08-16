@@ -45,6 +45,7 @@ public class Usuario {
 	
 	public Usuario(Long id, String nome, String foto, String usuario,String senha) {
 		this.id = id;
+		this.nome = nome;
 		this.foto = foto;
 		this.usuario = usuario;
 		this.senha = senha;
@@ -55,9 +56,6 @@ public class Usuario {
 
 
 	public Usuario() {}
-	
-	
-	
 	
 	
 	public Long getId() {
